@@ -23,15 +23,16 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:minHeight="48dp"
-      android:inputType="textPersonName"
+      android:inputType="text"
       android:importantForAutofill="no"/>
 
    <Button
-      android:id="@+id/show_name_button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Show Name"
-      android:layout_marginTop="20dp"/>
+       android:id="@+id/show_name_button"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       android:onClick="showName"
+       android:text="Show Name" />
 
    <TextView
       android:id="@+id/text_view"

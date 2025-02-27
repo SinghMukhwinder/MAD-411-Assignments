@@ -1,6 +1,7 @@
 package com.zybooks.assignment06
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -21,20 +22,11 @@ class MainActivity : AppCompatActivity() {
         showNameButton = findViewById(R.id.show_name_button)
         displayTextView = findViewById(R.id.text_view)
 
-
-
-        showNameButton.setOnClickListener{
-            showName()
-        }
     }
 
-    private fun showName() {
+     fun showName(view: View) {
         val userName = typeUserEditText.text.toString().trim()
+         displayTextView.text = "Hello, $userName!"
 
-        if (userName.isNotEmpty()) {
-            displayTextView.text = "Hello, $userName!"
-        } else {
-            displayTextView.text = "Please enter your name."
-        }
     }
 }
