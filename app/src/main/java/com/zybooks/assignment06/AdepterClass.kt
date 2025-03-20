@@ -24,11 +24,12 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         val expense = expenses[position]
         holder.nameText.text = expense.name
-        holder.amountText.text = "$${expense.amount}"
+        holder.amountText.text = expense.amount
 
         holder.deleteButton.setOnClickListener {
             expenses.removeAt(position)
             notifyItemRemoved(position)
+            notifyItemRangeChanged(position, expenses.size)
         }
     }
 
