@@ -3,28 +3,28 @@ package com.zybooks.assignment06
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.text.Transliterator.Position
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputEditText
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var expenseInput: EditText
     private lateinit var amountInput: EditText
-    private lateinit var dateInput: TextInputEditText
+    private lateinit var dateInput: Button
     private lateinit var expenseAdapter: AdepterClass
     private val expenses = mutableListOf<Expense>()
     private lateinit var tipsButton: Button
+    private lateinit var allExpenseView: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         expenseAdapter = AdepterClass(
-            expenses
+            expenses,
+            onDeleteClick = { position -> deleteExpenses(position) },
+            onShowDetailClick = { position -> showDetailsButton(position)
+            }
+
         )
         recyclerView.adapter = expenseAdapter
 
@@ -64,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             intent.data = Uri.parse("https://en.wikipedia.org/wiki/2020%E2%80%932021_Indian_farmers%27_protest")
             startActivity(intent)
         }
-
 
     }
 
@@ -88,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val amount = amountInput.text.toString().trim()
         val date = dateInput.text.toString().trim()
 
-        if (name.isEmpty()||amount.isEmpty()){
+        if (name.isEmpty()||amount.isEmpty() && date.isEmpty()){
             Toast.makeText(this, " Please enter name and amount", Toast.LENGTH_SHORT).show()
         }
         else {
@@ -143,6 +146,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private  fun deleteExpenses(position: Int){
+        expenses.removeAt(position)
+        expenseAdapter.notifyItemRemoved(position)
+        }
 }
 
 

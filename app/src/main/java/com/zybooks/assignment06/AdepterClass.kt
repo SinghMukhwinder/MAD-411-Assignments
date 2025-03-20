@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdepterClass(private val expenses: MutableList<Expense>):
+class AdepterClass(private val expenses: MutableList<Expense>,
+    private  val onDeleteClick: (Int) -> Unit, private  val onShowDetailClick: (Int) -> Unit,
+    ):
 RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -31,16 +33,14 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
         holder.textDate.text = expense.date
 
         holder.deleteButton.setOnClickListener {
-            expenses.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, expenses.size)
+            onDeleteClick(position)
         }
         holder.showDetailsButton.setOnClickListener{
-            val intent = Intent(holder.itemView.context, ExpenseDetailActivity::class.java)
-            intent.putExtra("expense_name", holder.nameText.text)
-            intent.putExtra("expense_amount", holder.amountText.text)
-            intent.putExtra("expense_date", holder.textDate.text)
-
+            val intent = Intent(holder.itemView.context, ExpenseDetailActivity::class.java).apply {
+                putExtra("expense_name", expense.name)
+                putExtra("expense_amount", expense.amount)
+                putExtra("expense_date", expense.date)
+            }
             holder.itemView.context.startActivity(intent)
         }
     }
