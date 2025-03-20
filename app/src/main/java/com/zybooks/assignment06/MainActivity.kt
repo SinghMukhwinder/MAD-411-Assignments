@@ -2,6 +2,7 @@ package com.zybooks.assignment06
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d("ActivityLifecycle", "onStart called")
+
+
 
         expenseInput = findViewById(R.id.expenseText)
         amountInput = findViewById(R.id.amountText)
@@ -61,6 +65,37 @@ class MainActivity : AppCompatActivity() {
 
     fun showName(view: View) {}
 
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("ActivityLifecycle", "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("ActivityLifecycle", "onResume called")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("ActivityLifecycle", "onPause called")
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("ActivityLifecycle", "onStop called")
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("ActivityLifecycle", "onDestroy called")
+
+    }
+
 }
+
 
 
