@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class ExpenseDetailActivity: AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.expense_activity_details)

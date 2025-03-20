@@ -6,4 +6,7 @@
     <string name="amount">Amount</string>
     <string name="delete">Delete</string>
     <string name="expense_date">Expense Date</string>
+    <string name="financial_tips">Financial Tips</string>
+    <string name="show_details">Show Details</string>
+    <string name="date">Date</string>
 </resources>

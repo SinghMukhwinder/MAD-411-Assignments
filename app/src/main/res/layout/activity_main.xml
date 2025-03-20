@@ -38,7 +38,7 @@
           android:id="@+id/dateField"
           android:layout_width="150dp"
           android:layout_height="wrap_content"
-          android:hint="Date" />
+          android:hint="@string/date" />
    </com.google.android.material.textfield.TextInputLayout>
 
    <Button
@@ -53,4 +53,10 @@
        android:id="@+id/recyclerView"
        android:layout_width="match_parent"
        android:layout_height="wrap_content" />
+
+   <Button
+       android:id="@+id/tipsButton"
+       android:layout_width="366dp"
+       android:layout_height="wrap_content"
+       android:text="@string/financial_tips" />
 </LinearLayout>

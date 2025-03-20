@@ -28,6 +28,17 @@
         android:textSize="16sp" />
 
     <Button
+        android:id="@+id/showDetailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_details"
+        android:padding="6dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"/>
+
+
+    <Button
         android:id="@+id/deleteButton"
         android:layout_width="80dp"
         android:layout_height="wrap_content"

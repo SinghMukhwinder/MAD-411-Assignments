@@ -1,5 +1,6 @@
 package com.zybooks.assignment06
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
         val amountText: TextView = itemView.findViewById(R.id.amountTextView)
         val textDate: TextView = itemView.findViewById(R.id.dateView)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+        val showDetailsButton: Button = itemView.findViewById(R.id.showDetailsButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -32,6 +34,14 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
             expenses.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, expenses.size)
+        }
+        holder.showDetailsButton.setOnClickListener{
+            val intent = Intent(holder.itemView.context, ExpenseDetailActivity::class.java)
+            intent.putExtra("expense_name", holder.nameText.text)
+            intent.putExtra("expense_amount", holder.amountText.text)
+            intent.putExtra("expense_date", holder.textDate.text)
+
+            holder.itemView.context.startActivity(intent)
         }
     }
 

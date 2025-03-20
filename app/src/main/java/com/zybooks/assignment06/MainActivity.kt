@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.text.Transliterator.Position
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dateInput: TextInputEditText
     private lateinit var expenseAdapter: AdepterClass
     private val expenses = mutableListOf<Expense>()
+    private lateinit var tipsButton: Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,19 +40,34 @@ class MainActivity : AppCompatActivity() {
         val addButton: Button = findViewById(R.id.addExpenseBtn)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
 
+        tipsButton = findViewById(R.id.tipsButton)
+
 
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        expenseAdapter = AdepterClass(expenses)
+        expenseAdapter = AdepterClass(
+            expenses
+        )
         recyclerView.adapter = expenseAdapter
 
 
         addButton.setOnClickListener{
-            addExpense()}
+            addExpense()
+        }
         dateInput.setOnClickListener {
             showDatePicker()
         }
+
+
+        tipsButton.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://en.wikipedia.org/wiki/2020%E2%80%932021_Indian_farmers%27_protest")
+            startActivity(intent)
+        }
+
+
     }
+
 
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
@@ -83,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showExpenseDetails(position: Int){
+    private fun showDetailsButton(position: Int){
         val expense = expenses[position]
         val intent = Intent(this, ExpenseDetailActivity::class.java).apply {
             putExtra("expense_name", expense.name)
