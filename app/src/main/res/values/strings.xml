@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Assignment 06</string>
-    <string name="your_name">your name</string>
-    <string name="show_name">Show Name</string>
     <string name="enter_your_name">Enter Your Name:</string>
+    <string name="expense_name">Expense Name</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="amount">Amount</string>
+    <string name="delete">Delete</string>
 </resources>
