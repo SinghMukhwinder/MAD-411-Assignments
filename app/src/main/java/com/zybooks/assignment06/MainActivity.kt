@@ -2,6 +2,8 @@ package com.zybooks.assignment06
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -79,12 +81,18 @@ class MainActivity : AppCompatActivity() {
             expenseInput.text.clear()
             amountInput.text.clear()
         }
+    }
 
+    private fun showExpenseDetails(position: Int){
+        val expense = expenses[position]
+        val intent = Intent(this, ExpenseDetailActivity::class.java).apply {
+            putExtra("expense_name", expense.name)
+            putExtra("expense_amount", expense.amount)
+            putExtra("expense_date", expense.date)
+        }
+        startActivity(intent)
     }
-    private fun deleteExpense(position: Int){
-        expenses.removeAt(position)
-        expenseAdapter.notifyItemRemoved(position)
-    }
+
 
     fun showName(view: View) {}
 
