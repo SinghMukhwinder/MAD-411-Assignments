@@ -1,6 +1,7 @@
 package com.zybooks.assignment06
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,11 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var expenseInput: EditText
     private lateinit var amountInput: EditText
+    private lateinit var dateInput: TextInputEditText
     private lateinit var expenseAdapter: AdepterClass
     private val expenses = mutableListOf<Expense>()
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         expenseInput = findViewById(R.id.expenseText)
         amountInput = findViewById(R.id.amountText)
+        dateInput =  findViewById(R.id.dateField)
         val addButton: Button = findViewById(R.id.addExpenseBtn)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
 
@@ -39,18 +44,36 @@ class MainActivity : AppCompatActivity() {
 
 
         addButton.setOnClickListener{
-            addExpense()
+            addExpense()}
+        dateInput.setOnClickListener {
+            showDatePicker()
         }
-        }
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            dateInput.setText(selectedDate)
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
     private fun addExpense(){
         val name = expenseInput.text.toString().trim()
         val amount = amountInput.text.toString().trim()
+        val date = dateInput.text.toString().trim()
 
         if (name.isEmpty()||amount.isEmpty()){
             Toast.makeText(this, " Please enter name and amount", Toast.LENGTH_SHORT).show()
         }
         else {
-            val item = Expense(name,"$${amount}")
+            val item = Expense(name,"$${amount}", date)
             expenses.add(item)
             expenseAdapter.notifyItemInserted(expenses.size - 1)
             expenseInput.text.clear()

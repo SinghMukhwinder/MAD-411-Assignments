@@ -13,6 +13,7 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val nameText: TextView = itemView.findViewById(R.id.expenseNameText)
         val amountText: TextView = itemView.findViewById(R.id.amountTextView)
+        val textDate: TextView = itemView.findViewById(R.id.dateView)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
     }
 
@@ -25,6 +26,7 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
         val expense = expenses[position]
         holder.nameText.text = expense.name
         holder.amountText.text = expense.amount
+        holder.textDate.text = expense.date
 
         holder.deleteButton.setOnClickListener {
             expenses.removeAt(position)

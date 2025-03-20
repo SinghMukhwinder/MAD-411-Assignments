@@ -5,4 +5,5 @@
     <string name="add_expense">Add Expense</string>
     <string name="amount">Amount</string>
     <string name="delete">Delete</string>
+    <string name="expense_date">Expense Date</string>
 </resources>
