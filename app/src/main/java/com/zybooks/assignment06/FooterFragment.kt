@@ -10,7 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class FooterFragment(private var totalExpense: Double = 0.0):Fragment() {
+class FooterFragment(
+    private var totalExpense: Double = 0.0):Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

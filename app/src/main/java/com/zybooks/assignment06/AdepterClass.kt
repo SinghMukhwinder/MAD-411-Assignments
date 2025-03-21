@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AdepterClass(private val expenses: MutableList<Expense>,
-    private  val onDeleteClick: (Int) -> Unit, private  val onShowDetailClick: (Int) -> Unit,
+                   private  val onDeleteClick: (Int) -> Unit,
+                   private  val onShowDetailClick: (Int) -> Unit,
     ):
 RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
@@ -29,7 +30,7 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         val expense = expenses[position]
         holder.nameText.text = expense.name
-        holder.amountText.text = expense.amount
+        holder.amountText.text = "$${expense.amount}"
         holder.textDate.text = expense.date
 
         holder.deleteButton.setOnClickListener {

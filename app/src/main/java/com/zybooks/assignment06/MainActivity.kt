@@ -6,10 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -26,9 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var expenseAdapter: AdepterClass
     private val expenses = mutableListOf<Expense>()
     private lateinit var tipsButton: Button
-    private lateinit var allExpenseView: TextView
 
-    private  var date: String = ""
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.headerFragmentContainer, HeaderFragment())
         transaction.replace(R.id.footerFragmentContainer, FooterFragment(totalExpense()))
         transaction.commit()
-
     }
 
 
@@ -97,19 +92,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun addExpense(){
         val name = expenseInput.text.toString().trim()
-        val amount = amountInput.text.toString().trim()
+        val amountText = amountInput.text.toString().trim()
         val date = dateInput.text.toString().trim()
 
-        if (name.isEmpty()||amount.isEmpty() && date.isEmpty()){
-            Toast.makeText(this, " Please enter name and amount", Toast.LENGTH_SHORT).show()
+        val amount = amountText.toDoubleOrNull()
+
+        if (name.isEmpty()||amount == null || date.isEmpty()){
+            Toast.makeText(this, " Please enter name, amount and date", Toast.LENGTH_SHORT).show()
         }
         else {
-            val item = Expense(name,"$${amount}", date)
+            val item = Expense(name,amount, date)
             expenses.add(item)
             expenseAdapter.notifyItemInserted(expenses.size - 1)
+            updateFooter()
             expenseInput.text.clear()
             amountInput.text.clear()
-            updateFooter()
+            dateInput.text = "Select Date"
         }
     }
 
@@ -124,7 +122,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun showName(view: View) {}
 
 
     override fun onStart() {
@@ -168,7 +165,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun totalExpense(): Double {
-        return expenses.sumOf { it.amount.toDoubleOrNull() ?: 0.0 }
+        return expenses.sumOf { it.amount }
     }
 }
 
