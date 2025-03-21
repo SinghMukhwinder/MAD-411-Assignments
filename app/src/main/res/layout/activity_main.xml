@@ -1,59 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    tools:context="com.zybooks.assignment06.MainActivity">
+    android:padding="20dp"
+    tools:context="com.zybooks.assignment06.MainActivity"
+    android:fitsSystemWindows="true">
 
+   <!-- Header Fragment Container -->
+   <FrameLayout
+       android:id="@+id/headerFragmentContainer"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"/>
+
+   <!-- Expense Name Input -->
    <EditText
        android:id="@+id/expenseText"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:hint="Expense Name"
-       android:importantForAutofill="no"
-       android:inputType="text"
-       android:minHeight="48dp" />
+       android:hint="@string/expense_name"
+       android:layout_below="@id/headerFragmentContainer"
+       android:layout_marginTop="10dp"/>
 
+   <!-- Amount Input -->
    <EditText
        android:id="@+id/amountText"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:hint="Amount"
-       android:importantForAutofill="no"
-       android:inputType="text"
-       android:minHeight="48dp" />
+       android:layout_below="@id/expenseText"
+       android:layout_marginTop="10dp"/>
 
-
+   <!-- Select Date Button -->
    <Button
        android:id="@+id/dateField"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="@string/select_date"
-       android:layout_margin="10dp"/>
+       android:layout_below="@id/amountText"
+       android:layout_marginTop="10dp"
+       android:text="@string/select_date"/>
 
-
+   <!-- Add Expense Button -->
    <Button
        android:id="@+id/addExpenseBtn"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginTop="20dp"
-       android:onClick="showName"
-       android:text="@string/add_expense" />
+       android:layout_below="@id/dateField"
+       android:layout_marginTop="10dp"
+       android:text="@string/add_expense"/>
 
+   <!-- RecyclerView -->
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recyclerView"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content" />
+       android:layout_height="0dp"
+       android:layout_below="@id/addExpenseBtn"
+       android:layout_above="@id/footerFragmentContainer"
+       android:layout_marginTop="10dp"
+       android:layout_weight="1"/>
 
+   <!-- Footer Fragment -->
+   <FrameLayout
+       android:id="@+id/footerFragmentContainer"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_marginBottom="16dp"/>
+
+   <!-- Financial Tips Button -->
    <Button
        android:id="@+id/tipsButton"
-       android:layout_width="366dp"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="@string/financial_tips" />
-</LinearLayout>
+       android:layout_below="@id/footerFragmentContainer"
+       android:layout_marginTop="5dp"
+       android:text="@string/financial_tips"/>
+</RelativeLayout>

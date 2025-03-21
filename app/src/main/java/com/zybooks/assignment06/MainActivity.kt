@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Calendar
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val expenses = mutableListOf<Expense>()
     private lateinit var tipsButton: Button
     private lateinit var allExpenseView: TextView
+
+    private  var date: String = ""
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +72,11 @@ class MainActivity : AppCompatActivity() {
             intent.data = Uri.parse("https://en.wikipedia.org/wiki/2020%E2%80%932021_Indian_farmers%27_protest")
             startActivity(intent)
         }
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.headerFragmentContainer, HeaderFragment())
+        transaction.replace(R.id.footerFragmentContainer, FooterFragment(totalExpense()))
+        transaction.commit()
 
     }
 
@@ -100,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             expenseAdapter.notifyItemInserted(expenses.size - 1)
             expenseInput.text.clear()
             amountInput.text.clear()
+            updateFooter()
         }
     }
 
@@ -149,7 +159,17 @@ class MainActivity : AppCompatActivity() {
     private  fun deleteExpenses(position: Int){
         expenses.removeAt(position)
         expenseAdapter.notifyItemRemoved(position)
+        updateFooter()
         }
+    private fun updateFooter(){
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.footerFragmentContainer, FooterFragment(totalExpense()))
+        fragmentTransaction.commit()
+    }
+
+    private fun totalExpense(): Double {
+        return expenses.sumOf { it.amount.toDoubleOrNull() ?: 0.0 }
+    }
 }
 
 
