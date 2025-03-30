@@ -28,16 +28,6 @@ class FooterFragment(
         expenseTextView = view.findViewById(R.id.totalExpense)
         expenseTextView.text = "Total Expense: $totalExpense"
 
-
-        val financialTips: Button = view.findViewById(R.id.financialTips)
-        financialTips.setOnClickListener { financialTips() }
-    }
-
-    private fun financialTips() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("https://en.wikipedia.org/wiki/2020%E2%80%932021_Indian_farmers%27_protest")
-        startActivity(intent)
-
     }
 
     fun updateAmount(newTotal: Double){
