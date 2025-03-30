@@ -43,5 +43,5 @@
         android:layout_marginStart="8dp"
         android:gravity="center"
         android:padding="4dp"
-        android:text="Delete" />
+        android:text="@string/delete" />
 </LinearLayout>

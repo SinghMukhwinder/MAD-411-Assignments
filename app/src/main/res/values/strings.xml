@@ -2,15 +2,23 @@
     <string name="app_name">Assignment 06</string>
     <string name="enter_your_name">Enter Your Name:</string>
     <string name="add_expense">Add Expense</string>
-    <string name="amount">Amount</string>
-    <string name="delete">Delete</string>
+
+
     <string name="expense_date">Expense Date</string>
-    <string name="financial_tips">Financial Tips</string>
+
     <string name="show_details">Show Details</string>
     <string name="date">Date</string>
-    <string name="select_date">Select Date</string>
+
     <string name="expense_amount">Expense Amount</string>
     <string name="expense_tracker">Expense Tracker</string>
+
+
     <string name="total_expense_0_00">Total Expense: $0.00</string>
+
+    <string name="track_your_expenses">Track Your Expenses</string>
+    <string name="delete">Delete</string>
+    <string name="financial_tips">Financial Tips!</string>
     <string name="expense_name">Expense Name</string>
+    <string name="amount">Amount</string>
+    <string name="select_date">Select Date</string>
 </resources>

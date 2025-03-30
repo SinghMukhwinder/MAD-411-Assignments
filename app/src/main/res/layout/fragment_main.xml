@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/fragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        tools:ignore="UselessParent">
+
+    <FrameLayout
+        android:id="@+id/headerFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <EditText
+        android:id="@+id/expenseText"
+        android:layout_width="277dp"
+        android:layout_height="61dp"
+        android:hint="@string/expense_name"
+        android:layout_below="@id/headerFragmentContainer"/>
+
+    <EditText
+        android:id="@+id/amountText"
+        android:layout_width="299dp"
+        android:layout_height="70dp"
+        android:hint="@string/amount"
+        android:layout_below="@id/expenseText"/>
+
+    <Button
+        android:id="@+id/dateField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_date"
+        android:layout_below="@id/amountText"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:id="@+id/addExpenseBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Expense"
+        android:layout_below="@id/dateField"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/addExpenseBtn"
+        android:layout_above="@id/footerFragmentContainer"/>
+
+    <FrameLayout
+        android:id="@+id/footerFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"/>
+
+
+    <Button
+        android:id="@+id/tipsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/financial_tips"
+        android:layout_margin="10dp"
+        android:layout_below="@id/footerFragmentContainer"/>
+
+    </RelativeLayout>
+</FrameLayout>

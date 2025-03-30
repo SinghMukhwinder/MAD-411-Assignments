@@ -1,17 +1,17 @@
-import android.content.Intent
+package com.zybooks.assignment06
+
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.zybooks.assignment06.Expense
-import com.zybooks.assignment06.ExpenseDetailActivity
-import com.zybooks.assignment06.R
 
 class AdepterClass(private val expenses: MutableList<Expense>,
-                   private  val onDeleteClick: (Int) -> Unit,
-                   private  val onShowDetailClick: (Int) -> Unit,
+                  private val footerFragment: FooterFragment,
+    private val mainFragment: MainFragment
 ):
     RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
@@ -31,22 +31,27 @@ class AdepterClass(private val expenses: MutableList<Expense>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         val expense = expenses[position]
         holder.nameText.text = expense.name
-        holder.amountText.text = "$${expense.amount}"
+        holder.amountText.text = expense.amount.toString()
         holder.textDate.text = expense.date
 
         holder.deleteButton.setOnClickListener {
-            onDeleteClick(position)
+            expenses.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, expenses.size)
+            val newAmount = expenses.sumOf { it.amount }
+            mainFragment.onDeleteClick(expense)
+            footerFragment.updateAmount(newAmount)
         }
+
         holder.showDetailsButton.setOnClickListener{
-            val intent = Intent(holder.itemView.context, ExpenseDetailActivity::class.java).apply {
-                putExtra("expense_name", expense.name)
-                putExtra("expense_amount", expense.amount)
-                putExtra("expense_date", expense.date)
+            val bundle = Bundle().apply {
+                putString("expense_name", expense.name)
+                putString("expense_amount", expense.amount.toString())
+                putString("expense_date", expense.date)
             }
-            holder.itemView.context.startActivity(intent)
+            holder.itemView.findNavController().navigate(R.id.action_mainFragment_to_expenseDetailFragment, bundle)
         }
     }
 
     override fun getItemCount(): Int = expenses.size
-
 }
