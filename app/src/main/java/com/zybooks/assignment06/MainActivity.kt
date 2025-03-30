@@ -1,7 +1,9 @@
 package com.zybooks.assignment06
 
+import AdepterClass
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +17,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Calendar
+//Gson Import
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+
+private const val FILE_NAME = "expense.txt"
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         tipsButton = findViewById(R.id.tipsButton)
 
-
+        expenses.clear()
+        expenses.addAll(loadTasksFromFile(this))
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         expenseAdapter = AdepterClass(
@@ -97,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
         val amount = amountText.toDoubleOrNull()
 
-        if (name.isEmpty()||amount == null || date.isEmpty()){
+        if (name.isEmpty()|| amount == null || date.isEmpty()){
             Toast.makeText(this, " Please enter name, amount and date", Toast.LENGTH_SHORT).show()
         }
         else {
@@ -107,7 +118,9 @@ class MainActivity : AppCompatActivity() {
             updateFooter()
             expenseInput.text.clear()
             amountInput.text.clear()
+
             dateInput.text = "Select Date"
+            saveTasksToFile(this,expenses)
         }
     }
 
@@ -156,6 +169,7 @@ class MainActivity : AppCompatActivity() {
     private  fun deleteExpenses(position: Int){
         expenses.removeAt(position)
         expenseAdapter.notifyItemRemoved(position)
+        saveTasksToFile(this, expenses)
         updateFooter()
         }
     private fun updateFooter(){
@@ -167,6 +181,41 @@ class MainActivity : AppCompatActivity() {
     private fun totalExpense(): Double {
         return expenses.sumOf { it.amount }
     }
+
+
+    private fun saveTasksToFile(context: Context, expenses: List<Expense>) {
+        try {
+            val json = Gson().toJson(expenses)
+            context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use { output ->
+                output.write(json.toByteArray())
+            }
+            Log.d("FileStorage", "Tasks saved successfully")
+        } catch (e: IOException) {
+            Log.e("FileStorage", "Error saving tasks: ${e.message}")
+        }
+    }
+
+    private fun loadTasksFromFile(context: Context): MutableList<Expense> {
+        val expenses: MutableList<Expense> = mutableListOf()
+        try {
+            val file = File(context.filesDir, FILE_NAME)
+            if (!file.exists()) return expenses
+
+            val json = file.readText()
+            val type = object : TypeToken<List<Expense>>() {}.type
+            val loadedTasks: List<Expense> = Gson().fromJson(json, type)
+            expenses.addAll(loadedTasks)
+
+            Log.d("FileStorage", "Tasks loaded successfully")
+        } catch (e: FileNotFoundException) {
+            Log.e("FileStorage", "File not found: ${e.message}")
+        } catch (e: IOException) {
+            Log.e("FileStorage", "Error reading file: ${e.message}")
+        }
+        return expenses
+    }
+
+
 }
 
 

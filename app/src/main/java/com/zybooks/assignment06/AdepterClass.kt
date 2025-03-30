@@ -1,5 +1,3 @@
-package com.zybooks.assignment06
-
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +5,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zybooks.assignment06.Expense
+import com.zybooks.assignment06.ExpenseDetailActivity
+import com.zybooks.assignment06.R
 
 class AdepterClass(private val expenses: MutableList<Expense>,
                    private  val onDeleteClick: (Int) -> Unit,
                    private  val onShowDetailClick: (Int) -> Unit,
-    ):
-RecyclerView.Adapter<AdepterClass.ViewHolder>(){
+):
+    RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val nameText: TextView = itemView.findViewById(R.id.expenseNameText)
@@ -48,4 +49,4 @@ RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
     override fun getItemCount(): Int = expenses.size
 
-    }
+}

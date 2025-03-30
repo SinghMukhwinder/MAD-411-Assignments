@@ -1,5 +1,6 @@
 package com.zybooks.assignment06
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 class FooterFragment(
-    private var totalExpense: Double = 0.0):Fragment() {
+    private var totalExpense: Double):Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +22,7 @@ class FooterFragment(
         return inflater.inflate(R.layout.footer_fragment, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val expenseTextView: TextView = view.findViewById(R.id.totalExpense)
@@ -28,8 +31,6 @@ class FooterFragment(
 
         val financialTips: Button = view.findViewById(R.id.financialTips)
         financialTips.setOnClickListener { financialTips() }
-
-
     }
 
     private fun financialTips() {

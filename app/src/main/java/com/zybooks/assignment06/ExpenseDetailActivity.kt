@@ -1,13 +1,11 @@
 package com.zybooks.assignment06
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ExpenseDetailActivity: AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.expense_activity_details)
