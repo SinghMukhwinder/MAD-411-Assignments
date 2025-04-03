@@ -1,6 +1,5 @@
 package com.zybooks.assignment06.network
 
-import android.icu.util.Currency
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

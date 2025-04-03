@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -188,15 +187,6 @@ class MainFragment : Fragment() {
     }
 
 
-    private fun showDetailsButton(position: Int){
-        val expense = expenses[position]
-        val bundle = Bundle().apply {
-            putString("expense_name", expense.name)
-            putString("expense_amount", expense.amount.toString())
-            putString("expense_date", expense.date)
-        }
-        findNavController().navigate(R.id.action_mainFragment_to_expenseDetailFragment, bundle)
-    }
 
 
 
@@ -231,14 +221,9 @@ class MainFragment : Fragment() {
     }
 
 
-    private fun totalExpense(): Double {
-        return expenses.sumOf { it.amount }
-    }
-
-
-
-
-
+//    private fun totalExpense(): Double {
+//        return expenses.sumOf { it.amount }
+//    }
 
 
     private fun saveTasksToFile(context: Context, expenses: List<Expense>) {

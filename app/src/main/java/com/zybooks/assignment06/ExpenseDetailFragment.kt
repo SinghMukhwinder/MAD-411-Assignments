@@ -33,7 +33,7 @@ class ExpenseDetailFragment: Fragment() {
 
 
         expenseTitle.text = "Expense Name: $nameExpense"
-        amountTitle.text = "Expense Amount: $amountExpense"
+        amountTitle.text = "Expense Amount: $${amountExpense}"
         dateTitle.text = "Expense Date: $dateExpense"
 
         return  view
