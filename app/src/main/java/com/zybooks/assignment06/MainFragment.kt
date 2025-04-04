@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
@@ -44,6 +45,7 @@ class MainFragment : Fragment() {
     private lateinit var footerFragment: FooterFragment
     private lateinit var headerFragment: HeaderFragment
     private lateinit var currencySpinner: Spinner
+    private lateinit var costCheckBox: CheckBox
 
     private var date: String = ""
 
@@ -63,12 +65,15 @@ class MainFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         tipsButton = view.findViewById(R.id.tipsButton)
         currencySpinner = view.findViewById(R.id.currencySpinner)
+        costCheckBox = view.findViewById(R.id.costCheckBox)
 
 
+        fetchCurrencies()
         val currencies = Currency.getAvailableCurrencies().map { it.currencyCode }.sorted()
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencies)
         currencySpinner.adapter = adapter
+
 
         val defaultIndex = currencies.indexOfFirst { it == "CAD" }
         if (defaultIndex >= 0)
@@ -186,6 +191,30 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun fetchCurrencies(){
+        if (costCheckBox.isChecked){
+            lifecycleScope.launch {
+                try {
+                    val code  = withContext(Dispatchers.IO){
+                        RetrofitInstance.api.getCountryCode()
+                    }
+
+                    val currencyCodes = code.keys.sorted()
+                    val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencyCodes)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    currencySpinner.adapter = adapter
+
+//                    val defaultIndex = currencyCodes.indexOf("CAD")
+//                    if (defaultIndex >= 0) {
+//                        currencySpinner.setSelection(defaultIndex)
+//                    }
+
+                } catch (e: Exception) {
+                    Toast(requireContext())
+                }
+            }
+        }
+    }
 
 
 

@@ -34,6 +34,7 @@ class AdepterClass(private val expenses: MutableList<Expense>,
         holder.amountText.text = expense.amount.toString()
         holder.textDate.text = expense.date
 
+
         holder.deleteButton.setOnClickListener {
             expenses.removeAt(position)
             notifyItemRemoved(position)
