@@ -1,4 +1,4 @@
-package com.zybooks.assignment06
+package com.zybooks.assignment06.models
 
 data class Expense(
     val name: String,

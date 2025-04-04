@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.zybooks.assignment06.MainFragment"
+        android:name="com.zybooks.assignment06.fragments.MainFragment"
         android:label="Expense List"
         tools:layout="@layout/fragment_main">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/expenseDetailFragment"
-        android:name="com.zybooks.assignment06.ExpenseDetailFragment"
+        android:name="com.zybooks.assignment06.fragments.ExpenseDetailFragment"
         android:label="Expense Details"
         tools:layout="@layout/fragment_expense_detail"/>
 </navigation>

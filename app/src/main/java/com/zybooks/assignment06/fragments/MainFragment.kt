@@ -1,4 +1,4 @@
-package com.zybooks.assignment06
+package com.zybooks.assignment06.fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -23,15 +23,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.zybooks.assignment06.AdepterClass
+import com.zybooks.assignment06.models.Expense
+
+import com.zybooks.assignment06.R
 import com.zybooks.assignment06.network.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.Calendar
+
 
 private const val FILE_NAME = "expense.txt"
 
@@ -195,12 +199,16 @@ class MainFragment : Fragment() {
         if (costCheckBox.isChecked){
             lifecycleScope.launch {
                 try {
-                    val code  = withContext(Dispatchers.IO){
+                    val code  = withContext(Dispatchers.IO) {
                         RetrofitInstance.api.getCountryCode()
                     }
 
                     val currencyCodes = code.keys.sorted()
-                    val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencyCodes)
+                    val adapter = ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        currencyCodes
+                    )
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     currencySpinner.adapter = adapter
 
@@ -281,7 +289,7 @@ class MainFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun onDeleteClick(expense:  Expense){
+    fun onDeleteClick(expense: Expense){
         expenses.remove(expense)
         expenseAdapter.notifyDataSetChanged()
         saveTasksToFile(requireContext(), expenses)

@@ -1,6 +1,6 @@
 package com.zybooks.assignment06.network
 
-import com.zybooks.assignment06.Cost
+import com.zybooks.assignment06.models.Cost
 import retrofit2.http.GET
 
 interface CurrencyApiService{

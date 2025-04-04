@@ -8,11 +8,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.zybooks.assignment06.fragments.FooterFragment
+import com.zybooks.assignment06.fragments.MainFragment
+import com.zybooks.assignment06.models.Expense
 import java.util.Currency
 
 class AdepterClass(private val expenses: MutableList<Expense>,
-                  private val footerFragment: FooterFragment,
-    private val mainFragment: MainFragment
+                   private val footerFragment: FooterFragment,
+                   private val mainFragment: MainFragment
 ):
     RecyclerView.Adapter<AdepterClass.ViewHolder>(){
 
