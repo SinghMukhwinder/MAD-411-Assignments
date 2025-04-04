@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Currency
 
 class AdepterClass(private val expenses: MutableList<Expense>,
                   private val footerFragment: FooterFragment,
@@ -23,6 +24,7 @@ class AdepterClass(private val expenses: MutableList<Expense>,
         val showDetailsButton: Button = itemView.findViewById(R.id.showDetailsButton)
         val convertedCostText: TextView = itemView.findViewById(R.id.convertedCostField)
 
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -32,10 +34,11 @@ class AdepterClass(private val expenses: MutableList<Expense>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         val expense = expenses[position]
+        val currencySymbol = Currency.getInstance(expense.currency).symbol
         holder.nameText.text = expense.name
         holder.amountText.text = expense.amount.toString()
         holder.textDate.text = expense.date
-        holder.convertedCostText.text = expense.convertedCost.toString()
+        holder.convertedCostText.text = "$currencySymbol${expense.convertedCost}"
 
 
         holder.deleteButton.setOnClickListener {
@@ -52,6 +55,9 @@ class AdepterClass(private val expenses: MutableList<Expense>,
                 putString("expense_name", expense.name)
                 putString("expense_amount", expense.amount.toString())
                 putString("expense_date", expense.date)
+                putDouble("expense_conversion",expense.convertedCost)
+                putString("currency_code", expense.currency)
+
             }
             holder.itemView.findNavController().navigate(R.id.action_mainFragment_to_expenseDetailFragment, bundle)
         }

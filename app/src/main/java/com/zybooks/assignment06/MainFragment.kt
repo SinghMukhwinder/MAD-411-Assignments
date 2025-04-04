@@ -55,6 +55,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
+
         Log.d("ActivityLifecycle", "onCreate called")
 
 
@@ -73,7 +74,6 @@ class MainFragment : Fragment() {
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencies)
         currencySpinner.adapter = adapter
-
 
         val defaultIndex = currencies.indexOfFirst { it == "CAD" }
         if (defaultIndex >= 0)
@@ -137,42 +137,42 @@ class MainFragment : Fragment() {
         val name = expenseInput.text.toString().trim()
         val amountText = amountInput.text.toString().trim()
         val date = dateInput.text.toString().trim()
+        val selectedCurrencyCode = currencySpinner.selectedItem.toString().lowercase()
 
-        val amount = amountText.toDoubleOrNull()
 
-        val selectedCurrencyCode = currencySpinner.selectedItem.toString()
-        val selectedCurrency = Currency.getInstance(selectedCurrencyCode)
 
-        if (name.isNotEmpty() && amount != null && date.isNotEmpty()) {
+        if (name.isNotEmpty() && amountText.isNotEmpty() && date.isNotEmpty()) {
+            val amount = amountText.toDouble()
+
             lifecycleScope.launch {
                 try {
-                    val response = withContext(Dispatchers.IO) {
-                        RetrofitInstance.api.getPrice()
-                    }
-                    val exchangeRate = response.cad[selectedCurrencyCode] ?: 1.0
-                    val convertedAmount = amount * exchangeRate
+                    val response = if (costCheckBox.isChecked) {
+                        val converisonData = RetrofitInstance.api.getPrice()
+                        converisonData.cad[selectedCurrencyCode] ?: 1.0
+                    } else
+                    { -1.0 }
+                    val finalAmount = amount * response
 
-                    val finalAmount = amountText.toDouble()
+
                     expenses.add(
                         Expense(
                             name,
-                            finalAmount,
+                            amount,
                             date,
-                            selectedCurrency,
-                            convertedAmount
+                            selectedCurrencyCode,
+                            finalAmount
                         )
                     )
-                    expenseAdapter.notifyItemInserted(expenses.size - 1)
-                    expenseInput.text.clear()
-                    amountInput.text.clear()
+
                     saveTasksToFile(requireContext(), expenses)
+                    expenseAdapter.notifyItemInserted(expenses.size - 1)
                     footerFragment.updateAmount(expenses.sumOf { it.amount })
 
-                    Toast.makeText(
-                        requireContext(),
-                        "Expense added with conversion",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    expenseInput.text.clear()
+                    amountInput.text.clear()
+
+
+
                 } catch (e: Exception) {
                     Toast.makeText(
                         requireContext(),
@@ -204,7 +204,6 @@ class MainFragment : Fragment() {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     currencySpinner.adapter = adapter
 
-//
 
                 } catch (e: Exception) {
                     Toast(requireContext())
@@ -212,9 +211,6 @@ class MainFragment : Fragment() {
             }
         }
     }
-
-
-
 
 
     override fun onStart() {
