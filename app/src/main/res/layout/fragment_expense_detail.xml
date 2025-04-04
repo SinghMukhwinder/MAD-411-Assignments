@@ -40,5 +40,15 @@
             android:textSize="18sp"
             android:textStyle= "bold" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/convertedAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Converted Cost"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
 </FrameLayout>

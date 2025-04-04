@@ -204,10 +204,7 @@ class MainFragment : Fragment() {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     currencySpinner.adapter = adapter
 
-//                    val defaultIndex = currencyCodes.indexOf("CAD")
-//                    if (defaultIndex >= 0) {
-//                        currencySpinner.setSelection(defaultIndex)
-//                    }
+//
 
                 } catch (e: Exception) {
                     Toast(requireContext())

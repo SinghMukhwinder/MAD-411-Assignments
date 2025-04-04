@@ -21,6 +21,8 @@ class AdepterClass(private val expenses: MutableList<Expense>,
         val textDate: TextView = itemView.findViewById(R.id.dateView)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
         val showDetailsButton: Button = itemView.findViewById(R.id.showDetailsButton)
+        val convertedCostText: TextView = itemView.findViewById(R.id.convertedCostField)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -33,6 +35,7 @@ class AdepterClass(private val expenses: MutableList<Expense>,
         holder.nameText.text = expense.name
         holder.amountText.text = expense.amount.toString()
         holder.textDate.text = expense.date
+        holder.convertedCostText.text = expense.convertedCost.toString()
 
 
         holder.deleteButton.setOnClickListener {
